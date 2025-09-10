@@ -1,26 +1,256 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
+/* @custom-variant dark (&:is(.dark *)); */
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
 }
 
-@media (prefers-color-scheme: dark) {
+
+
+
+/* Modern Chat App Design System - WhatsApp inspired with glass morphism */
+
+@layer base {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    /* App Background - Deep gradient */
+    --app-bg: 220 30% 8%;
+    --app-bg-secondary: 220 25% 12%;
+
+    /* Glass morphism colors */
+    --glass: 220 20% 15%;
+    --glass-light: 220 25% 20%;
+    --glass-border: 220 30% 25%;
+
+    /* Primary brand colors - WhatsApp inspired green */
+    --chat-primary: 142 69% 58%;
+    --chat-primary-light: 142 69% 65%;
+    --chat-primary-dark: 142 69% 45%;
+
+    /* Chat specific colors */
+    --chat-sent: 142 69% 58%;
+    --chat-received: 220 20% 18%;
+    --chat-input: 220 25% 15%;
+
+    /* Text colors */
+    --text-primary: 210 40% 98%;
+    --text-secondary: 220 15% 65%;
+    --text-muted: 220 10% 50%;
+
+    /* Status colors */
+    --success: 142 69% 58%;
+    --error: 0 84% 60%;
+    --warning: 38 92% 50%;
+    --info: 217 91% 60%;
+
+    /* Standard system colors */
+    --background: 220 30% 8%;
+    --foreground: 210 40% 98%;
+    --card: 220 20% 15%;
+    --card-foreground: 210 40% 98%;
+    --popover: 220 20% 15%;
+    --popover-foreground: 210 40% 98%;
+    --primary: 142 69% 58%;
+    --primary-foreground: 220 30% 8%;
+    --secondary: 220 20% 18%;
+    --secondary-foreground: 210 40% 98%;
+    --muted: 220 15% 25%;
+    --muted-foreground: 220 15% 65%;
+    --accent: 142 69% 58%;
+    --accent-foreground: 220 30% 8%;
+    --destructive: 0 84% 60%;
+    --destructive-foreground: 210 40% 98%;
+    --border: 220 30% 25%;
+    --input: 220 25% 15%;
+    --ring: 142 69% 58%;
+    --radius: 1rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-gradient-to-br from-[hsl(var(--app-bg))] to-[hsl(var(--app-bg-secondary))] text-[hsl(var(--text-primary))] min-h-screen font-sans antialiased;
+  }
+
+  /* Glass morphism utility */
+  .glass {
+    @apply bg-[hsl(var(--glass))]/80 backdrop-blur-xl border border-[hsl(var(--glass-border))]/50;
+  }
+
+  .glass-light {
+    @apply bg-[hsl(var(--glass-light))]/60 backdrop-blur-lg border border-[hsl(var(--glass-border))]/30;
+  }
+
+  /* Chat bubble animations */
+  .message-slide-in-left {
+    animation: slideInLeft 0.3s ease-out;
+  }
+
+  .message-slide-in-right {
+    animation: slideInRight 0.3s ease-out;
+  }
+
+  /* Page transitions */
+  .fade-in {
+    animation: fadeIn 0.5s ease-out;
+  }
+
+  .scale-in {
+    animation: scaleIn 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  }
+}
+
+@layer utilities {
+
+  /* Custom gradient backgrounds */
+  .gradient-primary {
+    background: linear-gradient(135deg, hsl(var(--chat-primary)), hsl(var(--chat-primary-light)));
+  }
+
+  .gradient-glass {
+    background: linear-gradient(135deg, hsl(var(--glass))/90, hsl(var(--glass-light))/60);
+  }
+
+  /* Text gradients */
+  .text-gradient {
+    background: linear-gradient(135deg, hsl(var(--chat-primary)), hsl(var(--chat-primary-light)));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+}
+
+@keyframes slideInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(20px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.card {
+  padding: 2em;
+}
+
+.read-the-docs {
+  color: #888;
 }
