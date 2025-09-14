@@ -3,7 +3,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { toast } from 'sonner'
 
 //websocket url
-const WS_URL = process.env.WS_URL || "ws://localhost:8080";
+const WS_URL = process.env.WS_URL || "ws://52.66.212.92/ws";
 
 //type of hook
 export interface WebSocketHook {
